@@ -34,12 +34,12 @@ public class ClienteCorporativo extends Cliente
 
 	@Override 
 	public String getTipoCliente() {
-		return null;
+		return CORPORATIVO;
 	}
 	
 	@Override
 	public String getIdentificador () {
-		return null;
+		return nombreEmpresa;
 	}
 	/**
      * Crea un nuevo objeto de tipo a partir de un objeto JSON.

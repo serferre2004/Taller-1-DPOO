@@ -2,6 +2,7 @@ package uniandes.dpoo.aerolinea.modelo.tarifas;
 
 import uniandes.dpoo.aerolinea.modelo.Vuelo;
 import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
+import uniandes.dpoo.aerolinea.modelo.cliente.ClienteCorporativo;
 
 public class CalculadoraTarifasTemporadaBaja extends CalculadoraTarifas {
 
@@ -13,11 +14,26 @@ public class CalculadoraTarifasTemporadaBaja extends CalculadoraTarifas {
 	
 	@Override
 	public int calcularCostoBase(Vuelo vuelo, Cliente cliente) {
-		return 0;
+		if (cliente.getTipoCliente() != "Corporativo") {
+			return this.calcularDistanciaVuelo(vuelo.getRuta())*COSTO_POR_KM_NATURAL;
+		} else {
+			return this.calcularDistanciaVuelo(vuelo.getRuta())*COSTO_POR_KM_CORPORATIVO;
+		}
 	}
 	
 	@Override
 	public double calcularPorcentajeDescuento(Cliente cliente) {
-		return 0;
+		if (cliente.getTipoCliente() != "Corporativo") {
+			return 0;
+		} else {
+			if (((ClienteCorporativo) cliente).getTamanoEmpresa() == 1) {
+				return DESCUENTO_GRANDES;
+			} else if (((ClienteCorporativo) cliente).getTamanoEmpresa() == 2){
+				return DESCUENTO_MEDIANAS;
+			} else {
+				return DESCUENTO_PEQ;
+			}
+			
+		}
 	}
 }

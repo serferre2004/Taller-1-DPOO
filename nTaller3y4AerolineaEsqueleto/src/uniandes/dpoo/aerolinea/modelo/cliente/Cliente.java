@@ -10,7 +10,8 @@ public abstract class Cliente {
 	private ArrayList<Tiquete> tiquetesUsados;
 	
 	public Cliente() {
-		
+		this.tiquetesSinUsar = new ArrayList<Tiquete>();
+		this.tiquetesUsados = new ArrayList<Tiquete>();
 	}
 	
 	public String getTipoCliente() {
@@ -22,14 +23,24 @@ public abstract class Cliente {
 	}
 	
 	public void agregarTiquete(Tiquete tiquete) {
-		
+		tiquetesSinUsar.add(tiquete);
 	}
 	
 	public int calcularValorTotalTiquetes() {
-		return 0;
+		int total = 0;
+		for (Tiquete t:tiquetesSinUsar) {
+			total += t.getTarifa();
+		}
+		return total;
 	}
 	
 	public void usarTiquetes(Vuelo vuelo) {
-		
+		for (Tiquete t:tiquetesSinUsar) {
+			if (t.getVuelo().equals(vuelo)) {
+				t.marcarComoUsado();
+				tiquetesSinUsar.remove(t);
+				tiquetesUsados.add(t);
+			}
+		}
 	}
 }

@@ -17,8 +17,8 @@ public class Aeropuerto
 	private String nombreCiudad;
 	private double latitud;
 	private double longitud;
-    private HashSet<String> codigosUtilizados = new HashSet<String>();
-	private int RADIO_TERRESTRE = 6371;
+    private static HashSet<String> codigosUtilizados = new HashSet<String>();
+	private static int RADIO_TERRESTRE = 6371;
     
 	
     
